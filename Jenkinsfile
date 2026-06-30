@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage{'Linter'} {
+            steps {
+                sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'scripts/build.sh'
