@@ -21,10 +21,14 @@ pipeline {
                 sh 'docker build -t nodemain:v1.0 .'
             }
         }
+        stage('Docker Push') {
+            steps {
+                sh "docker push seiki71/nodemain:v1.0"
+            }
+        }
         stage('Deploy') {
             steps {
-                sh 'docker stop app_main || true '
-                sh 'docker run --rm -dp 3000:3000 --name app_main nodemain:v1.0'
+                build job: 'deploy_to_main'
             }
         }
     }
