@@ -18,14 +18,20 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                sh 'docker build -t nodedev:v1.0 .'
+                sh 'docker build -t seiki71/nodedev:v1.0 .'
+            }
+        }
+        stage('Push Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker cred') {
+                        sh 'docker push seiki71/nodedev:v1.0'
+                    }
+                }
             }
         }
         stage('Deploy') {
-            steps {
-                sh 'docker stop app_dev || true'
-                sh 'docker run --rm -dp 3001:3000 --name app_dev nodedev:v1.0'
-            }
+            build job: 'Deploy_to_dev'
         }
     }
 }
