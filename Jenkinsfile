@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                sh 'docker build -t nodemain:v1.0 .'
+                sh 'docker build -t seiki71/nodemain:v1.0 .'
             }
         }
         stage('Docker Push') {
