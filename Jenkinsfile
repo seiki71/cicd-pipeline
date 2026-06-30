@@ -24,7 +24,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
-                    docker.withRegistry('docker.io', 'docker cred') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker cred') {
                         sh 'docker push seiki71/nodemain:v1.0'
                     }
                 }
