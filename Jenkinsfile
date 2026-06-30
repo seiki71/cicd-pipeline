@@ -31,7 +31,9 @@ pipeline {
             }
         }
         stage('Deploy') {
-            build job: 'Deploy_to_dev'
+            steps {
+                build job: 'Deploy_to_dev'
+            }
         }
     }
 }
