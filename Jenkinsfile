@@ -23,8 +23,10 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                docker.withRegistry('docker.io', 'docker cred') {
-                    sh 'docker push seiki71/nodemain:v1.0'
+                script {
+                    docker.withRegistry('docker.io', 'docker cred') {
+                        sh 'docker push seiki71/nodemain:v1.0'
+                    }
                 }
             }
         }
