@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 docker stop app_dev
-                docker run --rm -dp 3000:3000 --name app_dev nodedev:v1.0
+                docker run --rm -dp 3001:3000 --name app_dev nodedev:v1.0
             }
         }
     }
