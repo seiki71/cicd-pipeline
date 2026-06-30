@@ -1,26 +1,30 @@
 pipeline {
     agent any
 
+    tools {
+        NodeJS 'node'
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh scripts/build.sh
+                sh 'scripts/build.sh'
             }
         }
         stage('Test') {
             steps {
-                sh scripts/test.sh
+                sh 'scripts/test.sh'
             }
         }
         stage('Docker Build') {
             steps {
-                docker build -t nodedev:v1.0 .
+                sh 'docker build -t nodedev:v1.0 .'
             }
         }
         stage('Deploy') {
             steps {
-                docker stop app_dev
-                docker run --rm -dp 3001:3000 --name app_dev nodedev:v1.0
+                sh 'docker stop app_dev || true'
+                sh 'docker run --rm -dp 3000:3000 --name app_dev nodedev:v1.0'
             }
         }
     }
