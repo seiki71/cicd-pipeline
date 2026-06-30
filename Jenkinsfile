@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('Linter') {
+            steps {
+                sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'scripts/build.sh'
@@ -19,6 +24,11 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'docker build -t seiki71/nodemain:v1.0 .'
+            }
+        }
+                stage('Scan Image') {
+            steps {
+                sh 'docker run aquasec/trivy image seiki71/nodemain:v1.0'
             }
         }
         stage('Docker Push') {
