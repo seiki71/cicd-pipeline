@@ -21,6 +21,11 @@ pipeline {
                 sh 'docker build -t seiki71/nodedev:v1.0 .'
             }
         }
+        stage('Scan Image') {
+            steps {
+                sh 'docker run aquasec/trivy image seiki71/nodedev:v1.0'
+            }
+        }
         stage('Push Image') {
             steps {
                 script {
