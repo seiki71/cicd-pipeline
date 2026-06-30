@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage{'Linter'} {
+        stage('Linter') {
             steps {
                 sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
             }
